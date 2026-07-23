@@ -2,35 +2,28 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Control interface Alpha")
-root.geometry("400x400")
+root.geometry("600x400")
 
 root.title("Save Entries")
 
-def save_data():
-    text = name_entry.get()
 
-    # Save to file
-    with open("data.txt", "a") as file:
-        file.write(text + "\n")
-
-    # Reload everything from the file and display it
-    with open("data.txt", "r") as file:
-        result_label.config(text=file.read())
-
-    # Clear the entry box
-    name_entry.delete(0, tk.END)
-
-name_entry = tk.Entry(root)
-name_entry.pack()
-
-save_button = tk.Button(root, text="Save", command=save_data)
-save_button.pack()
-
-result_label = tk.Label(root, text="", justify="left")
+result_label = tk.Label(root, text="insert time here")
 result_label.pack()
 
-# Show previously saved entries when the program starts
+information_label = tk.Label(root, text="what does insert time here mean? \n this button saves your time that you have selected for later.\n When the time you have selected has come it will tell you that your time is soon ariving")
+information_label.pack()
 
+information_label = tk.Label(root, text="What is the purpose of haveing this window? \n This window helps users who have less time than others. \n this helps with people rembering things they easliy forget what they are surpost to do")
+information_label.pack()
+
+
+def show():
+    # .get() reads the text — always a string
+    result_label.config(text="You typed: " + name_entry.get())
+
+
+show_button = tk.Button(root, text="click me", command=show)
+show_button.pack(pady=5)
 
 root.mainloop()
 
