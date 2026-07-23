@@ -2,7 +2,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Control interface Alpha")
-root.geometry("700x400")
+root.geometry("500x700")
 
 root.title("Save Entries")
 
