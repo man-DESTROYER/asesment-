@@ -1,5 +1,6 @@
 import tkinter as tk 
 from tkinter import messagebox
+from time import strftime
 root = tk.Tk()
 root.title("Control interface Alpha")
 root.geometry("500x700")
@@ -34,7 +35,11 @@ am_pm_menu.pack()
 
 
 def on_enter(event):                  # bound functions receive an event
-    print("Enter was pressed")
+    add_to_list()
+def time():
+    string = strftime('%H:%M:%S %p')
+    lbl.config(text=string)
+    lbl.after(1000, time)
 
 
 
@@ -68,7 +73,14 @@ name_time.bind("<Return>", on_enter)
 result_label = tk.Label(root, text="")
 result_label.pack()
 
+lbl = tk.Label(root, font=('calibri', 40, 'bold'),
+            background='purple',
+            foreground='white')
 
+# Placing clock at the centre
+# of the tkinter window
+lbl.pack(anchor='center')
+time()
 
 
 
