@@ -1,6 +1,34 @@
 import tkinter as tk 
 from tkinter import messagebox
 from time import strftime
+import json
+
+FILE_NAME = "reminders.json" #makes save file
+
+def save_reminders():
+    reminders = []
+
+    # Get every item from the Listbox
+    for i in range(time_listbox.size()):
+        reminders.append(time_listbox.get(i))
+
+    # Save to JSON file
+    with open(FILE_NAME, "w") as file:
+        json.dump(reminders, file, indent=4)
+
+    messagebox.showinfo("Saved", "Reminders have been saved.")
+
+def load_reminders():
+    try:
+        with open(FILE_NAME, "r") as file:
+            reminders = json.load(file)
+
+        for reminder in reminders:
+            time_listbox.insert(tk.END, reminder)
+
+    except FileNotFoundError:
+        pass
+
 #from date import
 root = tk.Tk()
 
@@ -73,7 +101,7 @@ def add_to_list():
     #selected = fruit_listbox.curselection()   # tuple of indexes, e.g. (0,)
    
     if name_time.get() != "":
-        time_listbox.insert(tk.END, name_time.get() + " Due by " + hour_value.get() + ":" + minutes_value.get() + am_pm_value.get() + " " + date_list_value.get() + " " + month_list_value())   # add items at the end
+        time_listbox.insert(tk.END, name_time.get() + " Due By " + hour_value.get() + ":" + minutes_value.get() + am_pm_value.get() + " " + date_list_value.get() + " " + month_list_value.get())   # add items at the end
 
 show_button = tk.Button(root, text="time inserted", command=add_to_list)
 show_button.pack(pady=5)
@@ -97,7 +125,11 @@ lbl = tk.Label(root, font=('calibri', 40, 'bold'),
 lbl.pack(anchor='center')
 time()
 
+save_button = tk.Button(root, text="Save", command=save_reminders)
+save_button.pack(pady=5)
 
+load_button = tk.Button(root, text="Load", command=load_reminders)
+load_button.pack(pady=5)
 
 
 root.mainloop()
